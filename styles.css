@@ -1,0 +1,43 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    overflow: hidden;
+    text-align: center;
+}
+
+.offer, .discount {
+    background-color: #FF5733;
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+h2 {
+    color: #333;
+}
+
+.rating {
+    color: #FFA500; /* gold */
+}
+
+.price, .delivery-time {
+    color: #555;
+}
