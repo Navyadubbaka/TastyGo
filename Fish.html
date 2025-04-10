@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <section id="Fish">
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Fish & Seafood</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+
+    button.b {
+      background-color: #f3f4f6;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 9999px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    button.b:hover {
+      background-color: #e5e7eb;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold mb-2">Fish & Seafood</h1>
+    <p class="text-lg text-gray-600 mb-6">Fresh ocean delights prepared to perfection</p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Seafood Cards will be injected here -->
+    </div>
+
+    <!-- Cart Page Link -->
+    <div class="mt-6 text-right">
+      <a href="cart.html" class="text-blue-600 font-semibold hover:underline">
+        Go to Cart →
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const seafoodItems = [
+      {
+        name: "Grilled Salmon",
+        image: "https://www.archanaskitchen.com/images/archanaskitchen/0-Archanas-Kitchen-Recipes/2018/Grilled_Tangy_Lime_Salmon_Steak_Recipe-1.jpg",
+        price: 450,
+        rating: 4.8
+      },
+      {
+        name: "Prawn Masala",
+        image: "https://www.whiskaffair.com/wp-content/uploads/2023/02/Shrimp-Masala-2-3.jpg",
+        price: 380,
+        rating: 4.7
+      },
+      {
+        name: "Fish & Chips",
+        image: "https://images.themodernproper.com/production/posts/2022/FishandChips_11.jpg?w=1200&h=1200&q=60&fm=jpg&fit=crop&dm=1672266407&s=b0bcbcb33bdd0b65955ca0a38fc43c2f",
+        price: 320,
+        rating: 4.6
+      },
+      {
+        name: "Garlic Butter Lobster",
+        image: "https://www.saveur.com/uploads/2020/04/CurtisStone105697_grilled-lobster_4x5-scaled.jpg?auto=webp",
+        price: 650,
+        rating: 4.9
+      },
+      {
+        name: "Kerala Fish Curry",
+        image: "https://allwaysdelicious.com/wp-content/uploads/2022/03/kerala-fish-curry-overhead.jpg",
+        price: 350,
+        rating: 4.5
+      },
+      {
+        name: "Calamari Fry",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_eP-yp00bh-G5ndgNRJpUDJ5DjkGcK_n3rw&s",
+        price: 280,
+        rating: 4.4
+      }
+    ];
+
+    window.onload = function () {
+      const grid = document.querySelector(".grid");
+
+      seafoodItems.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "bg-white rounded-lg shadow-md overflow-hidden";
+
+        card.innerHTML = `
+          <img alt="${item.name}" class="w-full h-48 object-cover" src="${item.image}" />
+          <div class="p-4">
+            <h3 class="text-lg font-semibold">${item.name}</h3>
+            <p>Price: ₹${item.price}</p>
+            <p>Rating: ${item.rating}</p>
+            <div class="flex justify-end mt-2">
+              <button class="b" onclick="addToCart('${item.name}', ${item.price})">Add to Cart</button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    };
+
+    function addToCart(name, price) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push({ name, price });
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert( `${name} has been added to your cart!`);
+    }
+  </script>
+  </section>
+</body>
+</html>

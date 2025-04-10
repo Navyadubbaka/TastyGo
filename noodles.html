@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <section id="Noodles">
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Noodles</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+
+    button.b {
+      background-color: #f3f4f6;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 9999px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    button.b:hover {
+      background-color: #e5e7eb;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold mb-2">Noodles</h1>
+    <p class="text-lg text-gray-600 mb-6">Delicious noodle dishes from various cuisines</p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Noodle Cards will be injected here -->
+    </div>
+
+    <!-- Cart Page Link -->
+    <div class="mt-6 text-right">
+      <a href="cart.html" class="text-blue-600 font-semibold hover:underline">
+        Go to Cart →
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const noodles = [
+      {
+        name: "Veg Hakka Noodles",
+        image: "https://pupswithchopsticks.com/wp-content/uploads/hakka-noodles-3.webp",
+        price: 150,
+        rating: 4.6,
+        type: "veg"
+      },
+      {
+        name: "Chicken Chow Mein",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTf5mySHqfHCfL9CjmYY6clY9cqMN7SbGA63A&s",
+        price: 200,
+        rating: 4.8,
+        type: "non-veg"
+      },
+      {
+        name: "Schezwan Noodles",
+        image: "https://vps029.manageserver.in/menu/wp-content/uploads/2023/12/Gochujang-Noodles-Recipe-SQ.jpg",
+        price: 170,
+        rating: 4.7,
+        type: "veg"
+      },
+      {
+        name: "Egg Noodles",
+        image: "https://images.immediate.co.uk/production/volatile/sites/30/2020/12/Noodles-with-chilli-oil-eggs-6ec34e9.jpg?resize=768,574",
+        price: 180,
+        rating: 4.5,
+        type: "non-veg"
+      },
+      {
+        name: "Thai Green Curry Noodles",
+        image: "https://allthenoodles.com/wp-content/uploads/2024/09/udon-noodles-thai-green-curry-sq2.jpg",
+        price: 220,
+        rating: 4.9,
+        type: "veg"
+      },
+      {
+        name: "Prawn Noodles",
+        image: "https://www.slimmingeats.com/blog/wp-content/uploads/2010/01/sweet-chilli-prawns-noodles-8.jpg",
+        price: 240,
+        rating: 4.7,
+        type: "non-veg"
+      }
+    ];
+
+    window.onload = function () {
+      const grid = document.querySelector(".grid");
+
+      noodles.forEach(noodle => {
+        const card = document.createElement("div");
+        card.className = "bg-white rounded-lg shadow-md overflow-hidden";
+
+        card.innerHTML = `
+          <img alt="${noodle.name}" class="w-full h-48 object-cover" src="${noodle.image}" />
+          <div class="p-4">
+            <div class="flex justify-between items-start">
+              <h3 class="text-lg font-semibold">${noodle.name}</h3>
+              <span class="px-2 py-1 text-xs rounded-full ${noodle.type === 'veg' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+                ${noodle.type === 'veg' ? 'VEG' : 'NON-VEG'}
+              </span>
+            </div>
+            <p>Price: ₹${noodle.price}</p>
+            <p>Rating: ${noodle.rating}</p>
+            <div class="flex justify-end mt-2">
+              <button class="b" onclick="addToCart('${noodle.name}', ${noodle.price})">Add to Cart</button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    };
+
+    function addToCart(name, price) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push({ name, price });
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert(`${name} has been added to your cart!`);
+    }
+  </script>
+  </section>
+</body>
+</html>

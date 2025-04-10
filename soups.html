@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <section id="Soups">
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Comforting Soups</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+
+    button.b {
+      background-color: #f3f4f6;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 9999px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    button.b:hover {
+      background-color: #e5e7eb;
+      transform: translateY(-2px);
+    }
+
+    .veg-tag {
+      background-color: #dcfce7;
+      color: #166534;
+    }
+
+    .nonveg-tag {
+      background-color: #fee2e2;
+      color: #991b1b;
+    }
+
+    .soup-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .soup-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold mb-2 text-amber-800">Comforting Soups</h1>
+    <p class="text-lg text-gray-600 mb-6">Warm and nourishing soups to soothe your soul</p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Soup Cards will be injected here -->
+    </div>
+
+    <!-- Cart Page Link -->
+    <div class="mt-8 text-right">
+      <a href="cart.html" class="inline-flex items-center text-amber-600 font-semibold hover:underline">
+        View Your Cart <i class="fas fa-chevron-right ml-1"></i>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const soups = [
+      {
+        name: "Tomato Basil Soup",
+        image: "https://sugarspunrun.com/wp-content/uploads/2024/08/Fresh-Roasted-Tomato-Basil-Soup-1-of-1-2.jpg",
+        price: 120,
+        rating: 4.8,
+        type: "veg",
+        serving: "Regular Bowl"
+      },
+      {
+        name: "Cream of Mushroom",
+        image: "https://www.vegrecipesofindia.com/wp-content/uploads/2021/11/mushroom-soup-2.jpg",
+        price: 140,
+        rating: 4.7,
+        type: "veg",
+        serving: "Regular Bowl"
+      },
+      {
+        name: "Chicken Noodle Soup",
+        image: "https://vikalinka.com/wp-content/uploads/2021/10/Chicken-Noodle-Soup-5.jpg",
+        price: 160,
+        rating: 4.9,
+        type: "non-veg",
+        serving: "Large Bowl"
+      },
+      {
+        name: "Hot & Sour Soup",
+        image: "https://www.cookingcarnival.com/wp-content/uploads/2023/09/Hot-and-sour-soup-4.jpg",
+        price: 130,
+        rating: 4.6,
+        type: "veg",
+        serving: "Regular Bowl"
+      },
+      {
+        name: "Pumpkin Soup",
+        image: "https://www.healthyfood.com/wp-content/uploads/2019/07/Creamy-pumpkin-soup-1024x638.jpg",
+        price: 150,
+        rating: 4.8,
+        type: "veg",
+        serving: "Regular Bowl"
+      },
+      {
+        name: "Seafood Chowder",
+        image: "https://yousaypotatoes.com/wp-content/uploads/2024/08/seafood-chowder-3sq.jpg",
+        price: 180,
+        rating: 4.7,
+        type: "non-veg",
+        serving: "Large Bowl"
+      }
+    ];
+
+    window.onload = function () {
+      const grid = document.querySelector(".grid");
+
+      soups.forEach(soup => {
+        const card = document.createElement("div");
+        card.className = "bg-white rounded-lg shadow-md overflow-hidden soup-card";
+
+        card.innerHTML = `
+          <div class="relative">
+            <img alt="${soup.name}" class="w-full h-52 object-cover" src="${soup.image}" />
+            <span class="absolute top-2 right-2 px-2 py-1 text-xs rounded-full font-medium ${soup.type === 'veg' ? 'veg-tag' : 'nonveg-tag'}">
+              ${soup.type === 'veg' ? 'VEGETARIAN' : 'NON-VEG'}
+            </span>
+          </div>
+          <div class="p-5">
+            <div class="flex justify-between items-start mb-2">
+              <h3 class="text-xl font-bold text-gray-800">${soup.name}</h3>
+              <span class="bg-amber-100 text-amber-800 px-2 py-1 rounded text-sm">${soup.serving}</span>
+            </div>
+            
+            <div class="flex items-center mb-3">
+              <div class="flex text-amber-400 mr-2">
+                ${'★'.repeat(Math.floor(soup.rating))}${'☆'.repeat(5-Math.floor(soup.rating))}
+              </div>
+              <span class="text-gray-600 text-sm">${soup.rating}/5</span>
+            </div>
+            
+            <div class="flex justify-between items-center">
+              <span class="text-lg font-bold text-amber-700">₹${soup.price}</span>
+              <button class="b flex items-center" onclick="addToCart('${soup.name}', ${soup.price})">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    };
+
+    function addToCart(name, price) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push({ name, price });
+      localStorage.setItem("cart", JSON.stringify(cart));
+      
+      // Create and show toast notification
+      const toast = document.createElement("div");
+      toast.className = "fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg flex items-center";
+      toast.innerHTML = `
+        <i class="fas fa-check-circle mr-2"></i>
+        ${name} added to cart!
+      `;
+      document.body.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.remove();
+      }, 3000);
+    }
+  </script>
+  </section>
+</body>
+</html>

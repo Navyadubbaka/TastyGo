@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <section id="Login"> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url("https://static.vecteezy.com/system/resources/thumbnails/050/436/476/small_2x/steaming-plate-of-indian-idli-served-sambar-and-coconut-chutney-a-south-indian-breakfast-classic-photo.jpg") no-repeat center center/cover;
+            opacity: 0.9;
+        }
+
+        .container {
+            display: flex;
+            width: 700px;
+            background-color: white;
+            opacity: 0.95;
+            padding: 80px 60px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+        }
+
+        .right {
+            width: 100%;
+        }
+
+        .right h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .remember-forgot a {
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background: black;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="right">
+            <h2>LOG IN</h2>
+            <form onsubmit="loginUser(event)">
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" placeholder="Enter your email" required>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" placeholder="Enter your password" required>
+                </div>
+                <div class="remember-forgot">
+                    <label><input type="checkbox"> Remember me</label>
+                    <a href="#">Forgot password?</a>
+                </div>
+                <button type="submit" class="btn">Log In</button>
+                
+
+
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Step 1: Create dummy dataset
+        const users = [
+            { email: "navya123@gmail.com", password: "securePass123" },
+            { email: "hello@gmail.com", password: "hello123" },
+            { email: "admin@foodie.com", password: "admin123" }
+        ];
+
+        // Step 2: Login function
+        function loginUser(event) {
+            event.preventDefault(); // prevent form from submitting
+
+            // Step 3: Get values from form
+            const email = document.querySelector('input[type="email"]').value.trim();
+            const password = document.querySelector('input[type="password"]').value.trim();
+
+            // Step 4: Check if user exists
+            const user = users.find(u => u.email === email && u.password === password);
+
+            // Step 5: Show result
+            if (user) {
+                // alert("✅ Login successful! Welcome " + email);
+                //Example: Redirect to another page
+                window.location.href = "frontend.html#frontpage";
+            } else {
+                alert("❌ Invalid email or password. Please try again.");
+            }
+        }
+    </script>
+    </section>
+</body>
+</html>

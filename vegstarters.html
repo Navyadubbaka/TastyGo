@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <section id="VegStarters">
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Veg Starters</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+
+    button.b {
+      background-color: #f3f4f6;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 9999px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    button.b:hover {
+      background-color: #e5e7eb;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold mb-2">Veg Starters</h1>
+    <p class="text-lg text-gray-600 mb-6">Delicious vegetarian appetizers to kickstart your meal</p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Starter Cards will be injected here -->
+    </div>
+
+    <!-- Cart Page Link -->
+    <div class="mt-6 text-right">
+      <a href="cart.html" class="text-blue-600 font-semibold hover:underline">
+        Go to Cart →
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const starters = [
+      {
+        name: "Paneer Tikka",
+        image: "https://tse2.mm.bing.net/th?id=OIP.cgWXGXAD6nUYnW3QHhjLoQHaE7&pid=Api&P=0&h=180",
+        price: 180,
+        rating: 4.8
+      },
+      {
+        name: "Aloo Tikki",
+        image: "https://tse1.mm.bing.net/th?id=OIP.PQtQD01tsi-V4j60gYGkGAHaHa&pid=Api&P=0&h=180",
+        price: 120,
+        rating: 4.5
+      },
+      {
+        name: "Hara Bhara Kabab",
+        image: "https://i0.wp.com/www.cookingfromheart.com/wp-content/uploads/2017/06/Hara-Bhara-Kabab-4.jpg?resize=683%2C1024",
+        price: 150,
+        rating: 4.6
+      },
+      {
+        name: "Corn Chaat",
+        image: "https://aartimadan.com/wp-content/uploads/2020/10/corn-chaat.jpg",
+        price: 130,
+        rating: 4.4
+      },
+      {
+        name: "Mushroom Fry",
+        image: "https://tse1.mm.bing.net/th?id=OIP.48x1goG6CsEhyjXIILEgEwHaE8&pid=Api&P=0&h=180",
+        price: 160,
+        rating: 4.7
+      },
+      {
+        name: "Veg Spring Rolls",
+        image: "https://tse4.mm.bing.net/th?id=OIP.idupfWFzwDFW6nTIqwWXTAHaF8&pid=Api&P=0&h=180",
+        price: 140,
+        rating: 4.5
+      }
+    ];
+
+    window.onload = function () {
+      const grid = document.querySelector(".grid");
+
+      starters.forEach(starter => {
+        const card = document.createElement("div");
+        card.className = "bg-white rounded-lg shadow-md overflow-hidden";
+
+        card.innerHTML = `
+          <img alt="${starter.name}" class="w-full h-48 object-cover" src="${starter.image}" />
+          <div class="p-4">
+            <h3 class="text-lg font-semibold">${starter.name}</h3>
+            <p>Price: ₹${starter.price}</p>
+            <p>Rating: ${starter.rating}</p>
+            <div class="flex justify-end mt-2">
+              <button class="b" onclick="addToCart('${starter.name}', ${starter.price})">Add to Cart</button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    };
+
+    function addToCart(name, price) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push({ name, price });
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert(`${name} has been added to your cart!`);
+    }
+  </script>
+  </section>
+</body>
+</html>

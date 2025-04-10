@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <section id="MainCourse">
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Main Course</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+
+    button.b {
+      background-color: #f3f4f6;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 9999px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    button.b:hover {
+      background-color: #e5e7eb;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold mb-2">Main Course</h1>
+    <p class="text-lg text-gray-600 mb-6">Hearty and flavorful dishes to satisfy your hunger</p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Main Course Cards will be injected here -->
+    </div>
+
+    <!-- Cart Page Link -->
+    <div class="mt-6 text-right">
+      <a href="cart.html" class="text-blue-600 font-semibold hover:underline">
+        Go to Cart →
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const mainCourses = [
+      {
+        name: "Butter Chicken",
+        image: "https://www.licious.in/blog/wp-content/uploads/2020/10/butter-chicken-.jpg",
+        price: 280,
+        rating: 4.9,
+        type: "non-veg"
+      },
+      {
+        name: "Paneer Butter Masala",
+        image: "https://img.freepik.com/premium-photo/delicious-paneer-butter-masala-photography_928503-851.jpg?w=2000",
+        price: 220,
+        rating: 4.8,
+        type: "veg"
+      },
+      {
+        name: "Dal Makhani",
+        image: "https://tse2.mm.bing.net/th?id=OIP.SZg7a8z3Pp1Mxj2CC9vH8AAAAA&pid=Api&P=0&h=180",
+        price: 180,
+        rating: 4.7,
+        type: "veg"
+      },
+      {
+        name: "Biryani",
+        image: "https://www.thespruceeats.com/thmb/SalyKjzBU-K1Bv-FTFWnbd6ckjY=/2121x1414/filters:fill(auto,1)/GettyImages-639704020-5c4a63ecc9e77c00017bfebf.jpg",
+        price: 250,
+        rating: 4.9,
+        type: "non-veg"
+      },
+      {
+        name: "Palak Paneer",
+        image: "https://tse3.mm.bing.net/th?id=OIP.7rLYpacfAPyCwYrmXOcotgHaHa&pid=Api&P=0&h=180",
+        price: 200,
+        rating: 4.6,
+        type: "veg"
+      },
+      {
+        name: "Fish Curry",
+        image: "https://www.whiskaffair.com/wp-content/uploads/2018/05/Kerala-Fish-Curry-2.jpg",
+        price: 270,
+        rating: 4.7,
+        type: "non-veg"
+      }
+    ];
+
+    window.onload = function () {
+      const grid = document.querySelector(".grid");
+
+      mainCourses.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "bg-white rounded-lg shadow-md overflow-hidden";
+
+        card.innerHTML = `
+          <img alt="${item.name}" class="w-full h-48 object-cover" src="${item.image}" />
+          <div class="p-4">
+            <div class="flex justify-between items-start">
+              <h3 class="text-lg font-semibold">${item.name}</h3>
+              <span class="px-2 py-1 text-xs rounded-full ${item.type === 'veg' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+                ${item.type === 'veg' ? 'VEG' : 'NON-VEG'}
+              </span>
+            </div>
+            <p>Price: ₹${item.price}</p>
+            <p>Rating: ${item.rating}</p>
+            <div class="flex justify-end mt-2">
+              <button class="b" onclick="addToCart('${item.name}', ${item.price})">Add to Cart</button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    };
+
+    function addToCart(name, price) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push({ name, price });
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert(`${name} has been added to your cart!`);
+    }
+  </script>
+  </section>
+</body>
+</html>

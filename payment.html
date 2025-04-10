@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fake Payment</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+     .font-sans{
+      background-image: url('https://www.transparenttextures.com/patterns/squairy-light.png'); /* Light pattern */
+      background-color: #f3f4f6; /* Tailwind's bg-gray-100 fallback */
+      background-repeat: repeat;
+    }
+  </style>
+</head>
+<body class="font-sans">
+  <div class="max-w-md mx-auto bg-white mt-16 p-8 rounded-xl shadow-lg">
+    <h2 class="text-3xl font-bold text-center mb-6">Payment Details</h2>
+
+    <!-- Total Amount -->
+    <div class="text-xl font-semibold mb-4 text-center">
+      Total Amount: ₹<span id="totalAmount">0</span>
+    </div>
+
+    <!-- Payment Options -->
+    <form id="paymentForm">
+      <div class="mb-6">
+        <label class="block mb-2 font-medium">Select Payment Method:</label>
+        <label class="flex items-center mb-2">
+          <input type="radio" name="paymentMethod" value="card" checked class="mr-2" />
+          Credit / Debit Card
+        </label>
+        <label class="flex items-center">
+          <input type="radio" name="paymentMethod" value="cod" class="mr-2" />
+          Cash on Delivery
+        </label>
+      </div>
+
+      <!-- Card Details Section -->
+      <div id="cardDetails">
+        <label class="block mb-4">
+          <span class="block text-sm font-medium">Card Number</span>
+          <input type="text" placeholder="1234 5678 9012 3456"
+                class="w-full mt-1 p-2 border rounded focus:outline-none focus:ring focus:border-blue-300" />
+        </label>
+
+        <div class="flex gap-4 mb-4">
+          <label class="flex-1">
+            <span class="block text-sm font-medium">Expiry Date</span>
+            <input type="text" placeholder="MM/YY"
+                  class="w-full mt-1 p-2 border rounded focus:outline-none focus:ring focus:border-blue-300" />
+          </label>
+          <label class="flex-1">
+            <span class="block text-sm font-medium">CVV</span>
+            <input type="text" placeholder="123"
+                  class="w-full mt-1 p-2 border rounded focus:outline-none focus:ring focus:border-blue-300" />
+          </label>
+        </div>
+      </div>
+
+      <button type="submit"
+              class="w-full bg-green-600 hover:bg-green-700 text-white p-2 rounded text-lg font-semibold">
+        Confirm Payment
+      </button>
+    </form>
+
+    <!-- Success Message -->
+    <div id="successMessage"
+         class="mt-6 p-4 bg-green-100 text-green-700 font-semibold text-center rounded hidden">
+      ✅ Payment Successful! Thank you for your order, And Order will Delivered.
+    </div>
+  </div>
+
+  <script>
+    // Get total from cart
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const total = cart.reduce((sum, item) => sum + item.price, 0);
+    document.getElementById("totalAmount").innerText = total;
+
+    const form = document.getElementById("paymentForm");
+    const successMessage = document.getElementById("successMessage");
+    const cardDetails = document.getElementById("cardDetails");
+
+    // Toggle card details based on payment method
+    form.paymentMethod.forEach(radio => {
+      radio.addEventListener("change", () => {
+        cardDetails.style.display = radio.value === "card" && radio.checked ? "block" : "none";
+      });
+    });
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      // Optional: Validate card only if 'card' method is selected
+      const selectedMethod = form.paymentMethod.value;
+      if (selectedMethod === "card") {
+        // You could validate input fields here if needed
+      }
+
+      // Simulate processing
+      setTimeout(() => {
+        form.classList.add("hidden");
+        successMessage.classList.remove("hidden");
+        localStorage.removeItem("cart");
+      }, 1000);
+    });
+  </script>
+</body>
+</html>
