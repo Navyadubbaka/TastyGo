@@ -157,23 +157,29 @@
       });
     };
 
+    // function addToCart(name, price) {
+    //   let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    //   cart.push({ name, price });
+    //   localStorage.setItem("cart", JSON.stringify(cart));
+      
+    //   // Create and show toast notification
+    //   const toast = document.createElement("div");
+    //   toast.className = "fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg flex items-center";
+    //   toast.innerHTML = `
+    //     <i class="fas fa-check-circle mr-2"></i>
+    //     ${name} added to cart!
+    //   `;
+    //   document.body.appendChild(toast);
+      
+    //   setTimeout(() => {
+    //     toast.remove();
+    //   }, 3000);
+    // }
     function addToCart(name, price) {
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
       cart.push({ name, price });
       localStorage.setItem("cart", JSON.stringify(cart));
-      
-      // Create and show toast notification
-      const toast = document.createElement("div");
-      toast.className = "fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg flex items-center";
-      toast.innerHTML = `
-        <i class="fas fa-check-circle mr-2"></i>
-        ${name} added to cart!
-      `;
-      document.body.appendChild(toast);
-      
-      setTimeout(() => {
-        toast.remove();
-      }, 3000);
+      alert(`${name} has been added to your cart!`);
     }
   </script>
   </section>
